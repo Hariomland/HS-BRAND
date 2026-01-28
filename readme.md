@@ -4,12 +4,7 @@
 
 **Hs brand** is a **Discord nuke bot**.  
 It is designed to be a **fast and nuker** and demonstrate new ways of nuking servers by bypassing some limits.  
-
-</div>
-<p align="center">
-  <img src="https://i.ibb.co/Xf6xHJqk/insomnia-dark.png" width="250" height="250">
-</p>
-
+
 ## ✨ Features
 
 - ⚡ Nukes fast and efficient
