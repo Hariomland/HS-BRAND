@@ -1,0 +1,29 @@
+{
+  "users": {
+    "720649564520054886": {
+      "uses": 27
+    }
+  },
+  "servers": {
+    "1462380185545478227": {
+      "user_id": "720649564520054886",
+      "member_count": 3,
+      "server_name": "sadiya_32's server"
+    },
+    "1345320181349617744": {
+      "user_id": "720649564520054886",
+      "member_count": 33,
+      "server_name": "MoonLight\u2122"
+    },
+    "1462370707764678721": {
+      "user_id": "720649564520054886",
+      "member_count": 4,
+      "server_name": "!        \u2122 \ud835\udddc\ud835\udde1\ud835\udde9 \ud835\ude6d's server"
+    },
+    "1465395828112756859": {
+      "user_id": "720649564520054886",
+      "member_count": 20,
+      "server_name": "OathMc"
+    }
+  }
+}

