@@ -55,12 +55,6 @@ print("\033[1;32m") # Green color for input
 TOKEN = input("Enter your Discord Bot Token: ")
 print("\033[0m") # Reset color
 
-# Bot ko start karne ke liye
-try:
-    client.run(TOKEN)
-except Exception as e:
-    print(f"\033[1;31mInvalid Token or Error: {e}\033[0m")
-
 
 intents = discord.Intents.all()
 
