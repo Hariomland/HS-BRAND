@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🌙 Insomnia
+# ⚠️ HS brand
 
-**Insomnia** is a **Discord nuke bot**.  
+**Hs brand** is a **Discord nuke bot**.  
 It is designed to be a **fast and nuker** and demonstrate new ways of nuking servers by bypassing some limits.  
 
 </div>
@@ -28,16 +28,5 @@ just use ur brain
 # Run
 python nuke.py
 ````
-
----
-
-<div align="center">
-
-### ⚖️ Ethical & Legal Notice 
-</div>
-
-🔸 It does **not encourage or support malicious activity**.  
-
-
-🔸 Always use responsibly in **controlled environments** such as penetration testing labs or awareness training.   
+
 
