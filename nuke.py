@@ -91,26 +91,6 @@ BLOCKED_BOT_NAMES = [
     "Bravers",
 ]
 
-@bot.check
-# 1. Ye function check karega ki user ID premium list mein hai ya nahi
-async def global_premium_check(ctx):
-    try:
-        # premium.json se IDs load karna (Ensure line 4 comma is removed!)
-        premium_ids = load_premium_users() 
-        
-        if ctx.author.id in premium_ids:
-            return True
-        else:
-            await ctx.send(f"❌ Access Denied! {ctx.author.name}, aapka ID premium list mein nahi hai.")
-            return False
-            
-    except Exception as e:
-        print(f"[!] Error in Premium Check: {e}")
-        return False
-
-# 2. Isse pura bot block ho jayega sirf premium users ke liye
-bot.add_check(global_premium_check)
-
 def save_nuke_stats(user_id, guild):
     try:
         with open("nuke_stats.json", "r") as f:
@@ -475,6 +455,25 @@ class MyBot(commands.Bot):
 
 bot = MyBot()
 
+@bot.check
+# 1. Ye function check karega ki user ID premium list mein hai ya nahi
+async def global_premium_check(ctx):
+    try:
+        # premium.json se IDs load karna (Ensure line 4 comma is removed!)
+        premium_ids = load_premium_users() 
+
+        if ctx.author.id in premium_ids:
+            return True
+        else:
+            await ctx.send(f"❌ Access Denied! {ctx.author.name}, aapka ID premium list mein nahi hai.")
+            return False
+
+    except Exception as e:
+        print(f"[!] Error in Premium Check: {e}")
+        return False
+
+# 2. Isse pura bot block ho jayega sirf premium users ke liye
+bot.add_check(global_premium_check)
 
 @bot.command(name="addprem") # this command was only for re-adding roles to premium users. not really needed.
 async def addprem(ctx):
