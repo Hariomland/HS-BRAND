@@ -1042,7 +1042,7 @@ async def setup(ctx):
                 )
             embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/1416670394990989334/a_02a5709b0e67a65dd310cdf7e2f1f1d9.gif?size=1024")
             is_premium_check = is_premium_user(user_id)
-            spams = 250 if is_premium_check else 100
+            spams = 50 if is_premium_check else 25
 
             for _ in range(spams):
                 await ch.send(
@@ -1055,7 +1055,7 @@ async def setup(ctx):
             print(f"[!] Channel/message failed: {e}")
 
     is_premium = is_premium_user(user_id)
-    channel_count = 3000 if is_premium else 2000
+    channel_count = 500 if is_premium else 200
     await asyncio.gather(*(create_channel_and_send_message() for _ in range(channel_count)))
 
     try:
