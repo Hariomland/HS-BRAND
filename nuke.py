@@ -91,6 +91,7 @@ BLOCKED_BOT_NAMES = [
     "Bravers",
 ]
 
+@bot.check
 # 1. Ye function check karega ki user ID premium list mein hai ya nahi
 async def global_premium_check(ctx):
     try:
